@@ -1,0 +1,13 @@
+# Verification rapide de la chaine YOLO (2 epoques, quelques minutes sur CPU) : a lancer apres toute modification.
+data_dir: data/raw/neu_det
+yolo_dir: data/processed/neu_det_yolo
+output_dir: outputs/yolo_quick
+split_file: outputs/yolo/split.csv      # le meme decoupage que l'entrainement complet
+weights: outputs/yolo/pretrained/yolo11n.pt
+image_size: 320
+batch_size: 16
+num_workers: 2
+epochs: 2
+patience: 2
+close_mosaic: 1
+warmup_epochs: 1

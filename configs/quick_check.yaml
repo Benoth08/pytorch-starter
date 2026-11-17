@@ -1,0 +1,10 @@
+# Verification rapide de toute la chaine (2 epoques) : a lancer apres toute modification du code.
+data_dir: data/raw/neu_cls_flat
+data_layout: class_folders
+output_dir: outputs/quick_check
+split_file: outputs/split.csv
+image_size: 64
+batch_size: 32
+num_workers: 0
+epochs: 2
+patience: 2

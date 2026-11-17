@@ -1,0 +1,28 @@
+# Transfer learning : ResNet18 ImageNet, backbone gele, tete seule. Memes donnees, meme decoupage.
+data_dir: data/raw/neu_cls_flat
+data_layout: class_folders
+output_dir: outputs/resnet18
+split_file: outputs/split.csv
+
+image_size: 128
+batch_size: 32
+num_workers: 2
+seed: 42
+
+model_name: resnet18
+pretrained: true
+freeze_backbone: true
+normalization: imagenet           # le modele a ete entraine avec ces statistiques
+
+epochs: 6
+learning_rate: 0.001
+backbone_learning_rate: 0.0001    # utilise seulement si freeze_backbone: false
+weight_decay: 0.0001
+patience: 3
+class_weighting: false
+optimizer: adamw                  # adamw | sgd (sgd utilise aussi la cle momentum)
+scheduler_factor: 0.5             # le pas d'apprentissage est multiplie par ce nombre quand la validation stagne...
+scheduler_patience: 2             # ...plus de 2 epoques de suite
+
+augment: [hflip, vflip]           # augmentations du train, dans l'ordre : hflip | vflip | rotate | brightness ; [] = aucune
+onnx_opset: 18                    # version du catalogue d'operations ONNX a l'export (celle que le moteur de production connait)

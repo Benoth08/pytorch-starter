@@ -1,0 +1,21 @@
+# Detection d'anomalies par auto-encodeur (chapitre Anomalies du cours) : MVTec AD, categorie bottle.
+# Cles validees par AnomalyConfig (src/vision_starter/config.py).
+data_dir: data/raw/mvtec_bottle     # scripts/get_mvtec_bottle.py ; toute categorie MVTec AD a la meme arborescence
+output_dir: outputs/anomaly_ae
+
+image_size: 256
+batch_size: 16
+num_workers: 2
+val_fraction: 0.15                  # normales d'entrainement gardees pour calibrer les seuils
+seed: 42
+
+latent_channels: 32                 # le goulot : LE reglage de l'auto-encodeur
+epochs: 30
+learning_rate: 0.001
+weight_decay: 0.00001
+patience: 8
+
+gaussian_sigma: 4.0                 # lissage de la carte d'erreur, en pixels
+image_quantile: 0.99                # seuil image = quantile des scores des normales de validation
+pixel_quantile: 0.999
+onnx_opset: 18                      # version du catalogue d'operations ONNX a l'export

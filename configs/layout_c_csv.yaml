@@ -1,0 +1,9 @@
+# Cas C : un dossier d'images et un CSV (filename, label).
+data_dir: data/raw/neu_cls_csv/images
+data_layout: csv
+labels_csv: data/raw/neu_cls_csv/labels.csv
+output_dir: outputs/layout_c
+split_file: outputs/split_layout_c.csv
+image_size: 64
+num_workers: 0
+epochs: 2

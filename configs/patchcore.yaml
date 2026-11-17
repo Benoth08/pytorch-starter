@@ -1,0 +1,15 @@
+# PatchCore avec anomalib (chapitre Anomalies du cours) : MVTec AD, categorie bottle. Cles validees par PatchcoreConfig.
+data_root: data/raw                 # contient mvtec_bottle/ (scripts/get_mvtec_bottle.py)
+category: mvtec_bottle
+output_dir: outputs/patchcore
+
+image_size: 256
+batch_size: 16
+num_workers: 0
+seed: 42
+
+backbone: resnet18                  # wide_resnet50_2 = le reglage du papier (4 x plus de memoire, plus lent sur CPU)
+backbone_source: torchvision        # torchvision : poids pris sur download.pytorch.org ; timm : poids Hugging Face
+layers: [layer2, layer3]
+coreset_sampling_ratio: 0.01        # memoire = 1 % des vecteurs des normales, choisis par coreset (0.1 = 40 min de selection sur CPU)
+num_neighbors: 9

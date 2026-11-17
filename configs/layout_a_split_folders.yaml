@@ -1,0 +1,8 @@
+# Cas A : les dossiers train/ val/ test/ existent deja, on garde ce decoupage.
+data_dir: data/raw/neu_cls_split
+data_layout: split_folders
+output_dir: outputs/layout_a
+split_file: outputs/split_layout_a.csv
+image_size: 64
+num_workers: 0
+epochs: 2

@@ -1,0 +1,7 @@
+# Fins de ligne uniformes entre Windows et Linux : LF dans le depot.
+* text=auto eol=lf
+*.bmp binary
+*.png binary
+*.jpg binary
+*.pt binary
+*.onnx binary

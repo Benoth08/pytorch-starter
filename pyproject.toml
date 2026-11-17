@@ -1,0 +1,59 @@
+[project]
+name = "vision-starter"
+version = "0.1.0"
+description = "Projet de depart pour la classification d'images en PyTorch (cours)"
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.5",
+    "torchvision>=0.20",
+    "numpy",
+    "pandas",
+    "pillow",
+    "scipy",
+    "scikit-learn",
+    "matplotlib",
+    "pyyaml",
+    "torchinfo",
+    "onnx",
+    "onnxruntime",
+    "onnxscript",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "ipykernel", "jupytext"]
+detection = ["ultralytics", "opencv-python"]   # chapitre Detection du cours (YOLO)
+anomaly = ["anomalib>=2.7"]                     # chapitre Anomalies du cours (PatchCore avec anomalib)
+
+# --- uv : PyTorch en version CPU, pris sur l'index officiel de PyTorch ---
+# (configuration recommandee par la documentation uv ; retirer ce bloc pour une version GPU)
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+torchvision = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 140
+target-version = "py311"
+extend-exclude = ["data", "outputs"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP"]
+ignore = ["B905"]
+
+[tool.ruff.lint.per-file-ignores]
+"notebooks/*" = ["E402", "E501"]

@@ -1,0 +1,21 @@
+# Detection avec YOLO11n / Ultralytics (chapitre Detection du cours) : NEU-DET. Cles validees par DetectionConfig.
+data_dir: data/raw/neu_det              # scripts/get_neu_det.py : IMAGES/*.jpg + ANNOTATIONS/*.xml (Pascal VOC)
+yolo_dir: data/processed/neu_det_yolo   # ecrit par scripts/prepare_yolo.py : images/<split>, labels/<split>, data.yaml
+output_dir: outputs/yolo
+split_file: outputs/yolo/split.csv
+weights: outputs/yolo/pretrained/yolo11n.pt   # poids COCO ; telecharges par Ultralytics s'ils manquent
+
+image_size: 320                         # NEU-DET fait 200 x 200 ; 320 est le plus petit multiple de 32 confortable
+batch_size: 16
+num_workers: 2
+val_fraction: 0.15
+test_fraction: 0.15
+seed: 42
+
+epochs: 60                              # 1 h 56 sur CPU ; quelques minutes sur GPU
+patience: 20
+close_mosaic: 10                        # dernieres epoques sans mosaic
+warmup_epochs: 3
+conf_eval: 0.001                        # evaluation : toute la courbe precision-rappel
+conf_predict: 0.25                      # production : seuil de decision
+iou_nms: 0.7

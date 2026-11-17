@@ -1,0 +1,24 @@
+# Segmentation binaire defaut / fond (chapitre Segmentation du cours) : Magnetic Tile Defect. Cles validees par SegmentationConfig.
+data_dir: data/raw/magnetic_tile    # scripts/get_magnetic_tile.py
+output_dir: outputs/segmentation
+split_file: outputs/segmentation/split.csv
+
+image_size: 256
+batch_size: 8
+num_workers: 2
+n_free: 150                         # images sans defaut conservees (sur 952) : le modele doit aussi apprendre a ne rien detecter
+val_fraction: 0.15
+test_fraction: 0.15
+seed: 42
+duplicate_max_hamming: 6            # quasi-doublons : bits differents toleres entre deux empreintes (sur 64)
+duplicate_min_correlation: 0.85     # quasi-doublons : correlation minimale des details ; ils restent du meme cote du decoupage
+
+pretrained: true                    # encodeur ResNet18 ImageNet
+epochs: 12
+learning_rate: 0.001                # decodeur (neuf)
+encoder_learning_rate: 0.0001       # encodeur pre-entraine : on l'ajuste doucement
+weight_decay: 0.0001
+patience: 4
+thresholds: [0.3, 0.4, 0.5, 0.6, 0.7]   # seuil sur la probabilite par pixel, choisi sur la validation
+min_defect_area: 20                 # decision par image : "defaut" si plus de 20 pixels sont predits en defaut
+onnx_opset: 18                      # version du catalogue d'operations ONNX a l'export

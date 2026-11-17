@@ -1,0 +1,29 @@
+# Modele custom : SmallResNet (blocs residuels), enregistre dans MODEL_REGISTRY sous le nom small_resnet.
+# Memes donnees, meme decoupage, memes scripts que default.yaml : seul le modele change.
+data_dir: data/raw/neu_cls_flat
+data_layout: class_folders
+output_dir: outputs/small_resnet
+split_file: outputs/split.csv
+
+image_size: 128
+batch_size: 32
+num_workers: 2
+seed: 42
+
+model_name: small_resnet
+normalization: dataset
+extra:                            # reglages propres au modele, lus par la fabrique (non valides par la dataclass)
+  channels: [32, 64, 128, 256]
+  dropout: 0.3
+
+epochs: 15
+learning_rate: 0.001
+weight_decay: 0.0001
+patience: 4
+class_weighting: true
+optimizer: adamw                  # adamw | sgd (sgd utilise aussi la cle momentum)
+scheduler_factor: 0.5             # le pas d'apprentissage est multiplie par ce nombre quand la validation stagne...
+scheduler_patience: 2             # ...plus de 2 epoques de suite
+
+augment: [hflip, vflip]           # augmentations du train, dans l'ordre : hflip | vflip | rotate | brightness ; [] = aucune
+onnx_opset: 18                    # version du catalogue d'operations ONNX a l'export (celle que le moteur de production connait)
